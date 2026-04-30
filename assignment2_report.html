@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Assignment 2 Report: Static Personal Blog Website &#8212; My Personal Blog 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Remote Development Project Report" href="assignment1_report.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="assignment-2-report-static-personal-blog-website">
+<h1>Assignment 2 Report: Static Personal Blog Website<a class="headerlink" href="#assignment-2-report-static-personal-blog-website" title="Link to this heading">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
+<p>This report documents the process of setting up, managing, and deploying a static personal blog website for Assignment 2.</p>
+</section>
+<section id="tool-selection">
+<h2>Tool Selection<a class="headerlink" href="#tool-selection" title="Link to this heading">¶</a></h2>
+<p>I chose <strong>Sphinx</strong> to generate the static site. Sphinx is a robust, well-established documentation generator written in Python. It natively supports reStructuredText, but with the <code class="docutils literal notranslate"><span class="pre">recommonmark</span></code> extension, it provides excellent Markdown support. I chose Sphinx because it is straightforward to set up, highly customizable, and perfectly suited for creating clean, static web pages for text-heavy content like reports and blogs.</p>
+</section>
+<section id="setup-process">
+<h2>Setup Process<a class="headerlink" href="#setup-process" title="Link to this heading">¶</a></h2>
+<ol class="simple">
+<li><p><strong>Environment Preparation:</strong> Installed the required packages using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sphinx</span> <span class="pre">sphinx-markdown-parser</span> <span class="pre">recommonmark</span></code>.</p></li>
+<li><p><strong>Initialization:</strong> Created a <code class="docutils literal notranslate"><span class="pre">blog</span></code> directory and initialized a Sphinx project using <code class="docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code>, separating the source and build directories.</p></li>
+<li><p><strong>Configuration:</strong> Modified <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> to enable Markdown support by adding <code class="docutils literal notranslate"><span class="pre">recommonmark</span></code> to the extensions list and setting the <code class="docutils literal notranslate"><span class="pre">source_suffix</span></code> to accept <code class="docutils literal notranslate"><span class="pre">.md</span></code> files.</p></li>
+<li><p><strong>Content Creation:</strong> Added Markdown files including <code class="docutils literal notranslate"><span class="pre">about.md</span></code>, <code class="docutils literal notranslate"><span class="pre">assignment1_report.md</span></code> (integrating the previous assignment), and this report (<code class="docutils literal notranslate"><span class="pre">assignment2_report.md</span></code>). Updated the <code class="docutils literal notranslate"><span class="pre">index.rst</span></code> <code class="docutils literal notranslate"><span class="pre">toctree</span></code> to link them all together.</p></li>
+<li><p><strong>Building:</strong> Ran <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> to generate the static HTML files into the <code class="docutils literal notranslate"><span class="pre">_build/html</span></code> directory.</p></li>
+</ol>
+</section>
+<section id="git-management-process">
+<h2>Git Management Process<a class="headerlink" href="#git-management-process" title="Link to this heading">¶</a></h2>
+<p>The project uses Git for version control to track logical steps in development.</p>
+<ul class="simple">
+<li><p><strong>Commit 1: Initial setup of Sphinx project</strong></p>
+<ul>
+<li><p><strong>Reason:</strong> To establish the repository and save the initial file structure generated by <code class="docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code>, along with a <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> to prevent tracking build artifacts.</p></li>
+</ul>
+</li>
+<li><p><strong>Commit 2: Added Markdown support and configuration</strong></p>
+<ul>
+<li><p><strong>Reason:</strong> To save the configuration changes in <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> that enable the parsing of <code class="docutils literal notranslate"><span class="pre">.md</span></code> files, a crucial requirement for the project.</p></li>
+</ul>
+</li>
+<li><p><strong>Commit 3: Added Assignment 1 integration and homepage</strong></p>
+<ul>
+<li><p><strong>Reason:</strong> To commit the integration of the previous assignment’s report and the initial home/about pages.</p></li>
+</ul>
+</li>
+<li><p><strong>Commit 4: Added Assignment 2 documentation</strong></p>
+<ul>
+<li><p><strong>Reason:</strong> To save the project report documenting the process and tool choices.</p></li>
+</ul>
+</li>
+<li><p><strong>Commit 5: Finalized structure and built HTML</strong></p>
+<ul>
+<li><p><strong>Reason:</strong> To mark the project as complete and ready for deployment.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="deployment">
+<h2>Deployment<a class="headerlink" href="#deployment" title="Link to this heading">¶</a></h2>
+<p>The generated static HTML files (located in the <code class="docutils literal notranslate"><span class="pre">_build/html</span></code> directory) can be served locally using a simple HTTP server (e.g., <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">http.server</span></code>) or hosted on platforms like GitHub Pages.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">My Personal Blog</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignment1_report.html">Remote Development Project Report</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Assignment 2 Report: Static Personal Blog Website</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tool-selection">Tool Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup-process">Setup Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#git-management-process">Git Management Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="assignment1_report.html" title="previous chapter">Remote Development Project Report</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026, Student.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/assignment2_report.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
