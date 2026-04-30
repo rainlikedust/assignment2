@@ -1,17 +1,20 @@
-.. My Personal Blog documentation master file, created by
-   sphinx-quickstart on Thu Apr 30 15:01:42 2026.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Welcome to My Personal Blog!
+============================
 
-My Personal Blog documentation
-==============================
-
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
+Hello, I'm Student. Welcome to my personal blog created for Assignment 2. 
+Below you can find links to my reports and other pages.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   about.md
+   assignment1_report.md
+   assignment2_report.md
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
