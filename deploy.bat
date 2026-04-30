@@ -3,6 +3,7 @@ cd /d "%~dp0"
 echo ===================================
 echo 1. Building new HTML files...
 echo ===================================
+call make.bat clean
 call make.bat html
 
 echo.
