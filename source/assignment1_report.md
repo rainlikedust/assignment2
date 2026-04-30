@@ -119,5 +119,3 @@ This project successfully demonstrated the implementation of a mathematical algo
 - Python Documentation: https://docs.python.org/3/
 - GCC, the GNU Compiler Collection: https://gcc.gnu.org/
 
-## Appendix
--  **Additional Notes**: Due to the local Windows environment lacking a GCC compiler, the C code could not be natively compiled and tested during this specific run, so an estimated benchmark is provided based on typical performance of similar hardware.
