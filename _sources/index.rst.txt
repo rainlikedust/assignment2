@@ -1,8 +1,8 @@
 Welcome to My Personal Blog!
 ============================
 
-Hello, I'm Student. Welcome to my personal blog created for Assignment 2. 
-Below you can find links to my reports and other pages.
+Hello, I'm Student. Welcome to my personal static blog created for Assignment 2. 
+Below you can find links to my reports and other pages documenting the course work.
 
 .. toctree::
    :maxdepth: 2
