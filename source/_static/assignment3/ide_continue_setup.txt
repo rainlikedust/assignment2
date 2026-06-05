@@ -1,0 +1,29 @@
+﻿Command: code --version
+1.121.0
+f6cfa2ea2403534de03f069bdf160d06451ed282
+x64
+
+Command: code --list-extensions --show-versions
+continue.continue@1.2.22
+
+Continue config path:
+C:\Users\dust\.continue\config.yaml
+
+Continue config:
+name: Assignment 3 Local Ollama
+version: 1.0.0
+schema: v1
+
+models:
+  - name: Qwen2.5 0.5B Local
+    provider: ollama
+    model: qwen2.5:0.5b
+    apiBase: http://127.0.0.1:11434
+    roles:
+      - chat
+      - edit
+
+context:
+  - provider: code
+  - provider: diff
+  - provider: terminal

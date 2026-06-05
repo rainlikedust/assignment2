@@ -11,6 +11,7 @@ Below you can find links to my reports and other pages documenting the course wo
    about.md
    assignment1_report.md
    assignment2_report.md
+   assignment3_report.md
 
 Indices and tables
 ==================

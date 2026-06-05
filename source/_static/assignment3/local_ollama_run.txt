@@ -1,0 +1,12 @@
+﻿Command: ollama --version
+ollama version is 0.24.0
+
+Command: ollama list
+NAME            ID              SIZE      MODIFIED           
+qwen2.5:0.5b    a8b0c5157701    397 MB    About a minute ago    
+
+Command: ollama run qwen2.5:0.5b "Explain what an AI agent is in two sentences."
+Note: The captured terminal stream contained spinner/control characters, so the model response below was recorded through the local Ollama API with stream=false for clean evidence.
+
+Output:
+An AI (Artificial Intelligence) agent is a software program or a system designed to execute tasks and perform actions autonomously based on predefined rules and instructions. It utilizes machine learning algorithms, natural language processing, and other artificial intelligence technologies to process information, make decisions, and adapt to user interactions in order to achieve specific goals.

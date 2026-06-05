@@ -17,11 +17,15 @@ echo.
 echo ===================================
 echo 3. Deploying to gh-pages branch...
 echo ===================================
-cd build\html
+git worktree remove ..\assignment2_ghpages --force 2>nul
+git worktree add ..\assignment2_ghpages gh-pages
+robocopy build\html ..\assignment2_ghpages /MIR /XD .git >nul
+cd ..\assignment2_ghpages
 git add .
 git commit -m "Deploy updated site"
-git push https://github.com/rainlikedust/assgn1.git gh-pages
-cd ..\..
+git push origin gh-pages
+cd ..\assignment2_repo
+git worktree remove ..\assignment2_ghpages --force
 
 echo.
 echo ===================================

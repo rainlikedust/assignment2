@@ -1,0 +1,14 @@
+﻿Command: python .\file_analysis_agent.py .\sample_document.txt "According to this file, what are the required parts of Assignment 3 and what is the lowest-cost implementation path?"
+Model: deepseek-v4-flash
+Endpoint: https://api.deepseek.com/chat/completions
+API key handling: DEEPSEEK_API_KEY environment variable only; key not written to files.
+
+Output:
+According to the file, Assignment 3 requires:
+
+1. Creating an online agent with an API model that searches the web or analyzes a file to answer a specific question.
+2. Installing Ollama and deploying a local model, demonstrated through a terminal or simple UI.
+3. Integrating an LLM into an IDE (VS Code, Cursor, or PyCharm) and showing how the AI helps explain or refactor code.
+4. Writing a Markdown report documenting setup steps, challenges, solutions, and a reflection comparing online and local models.
+
+The lowest-cost implementation path described in the file is: one DeepSeek API call for file analysis, a small Ollama model for local testing, and using Continue in VS Code for IDE integration.
