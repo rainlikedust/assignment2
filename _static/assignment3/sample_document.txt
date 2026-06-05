@@ -1,0 +1,10 @@
+Course assignment notes
+
+Assignment 3 asks students to deploy and compare AI agents. The required work includes:
+
+1. Create an online agent with an API model. The agent should search the web or analyze a file to answer a specific question.
+2. Install Ollama and deploy a local model. The local model must be demonstrated through a terminal or simple UI.
+3. Integrate an LLM into an IDE such as VS Code, Cursor, or PyCharm. The student should show how the AI helps explain or refactor code.
+4. Write a Markdown report that documents setup steps, challenges, solutions, and a reflection comparing online and local models.
+
+This workspace uses the lowest-cost path: one DeepSeek API call for file analysis, a small Ollama model for local testing, and Continue in VS Code for IDE integration.

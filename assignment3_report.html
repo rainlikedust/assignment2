@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Assignment 3: Deployment and Integration of AI Agents &#8212; My Personal Blog 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Assignment 2 Report: Static Personal Blog Website" href="assignment2_report.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="assignment-3-deployment-and-integration-of-ai-agents">
+<h1>Assignment 3: Deployment and Integration of AI Agents<a class="headerlink" href="#assignment-3-deployment-and-integration-of-ai-agents" title="Link to this heading">¶</a></h1>
+<p>Deadline: May 29th, 2026 (UTC+8)<br />Scope: Required 15 points only. I did not attempt the bonus section.</p>
+<section id="objective-and-setup">
+<h2>1. Objective and Setup<a class="headerlink" href="#objective-and-setup" title="Link to this heading">¶</a></h2>
+<p>The goal of this assignment was to deploy and compare an online LLM agent, a local LLM model, and an IDE-integrated assistant. I chose a low-cost setup:</p>
+<ul class="simple">
+<li><p>Online model: DeepSeek API, used once for file analysis.</p></li>
+<li><p>Local model: Ollama with <code class="docutils literal notranslate"><span class="pre">qwen2.5:0.5b</span></code>.</p></li>
+<li><p>IDE integration: VS Code with the Continue extension, configured to use the local Ollama model.</p></li>
+</ul>
+<p>The workspace contains these main files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file_analysis_agent.py</span></code>: minimal online file-analysis agent.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sample_document.txt</span></code>: short input file analyzed by the online agent.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">refactor_example.py</span></code>: code used for IDE explanation/refactor testing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">refactor_example_refactored.py</span></code>: manually checked refactored version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">evidence/</span></code>: command output and model interaction records.</p></li>
+</ul>
+</section>
+<section id="online-agent-with-deepseek">
+<h2>2. Online Agent with DeepSeek<a class="headerlink" href="#online-agent-with-deepseek" title="Link to this heading">¶</a></h2>
+<p>I implemented a small Python file-analysis agent using only the Python standard library. The script reads a local text file, sends it to the DeepSeek chat completion endpoint, and asks a specific question about the file. The API key is read from the <code class="docutils literal notranslate"><span class="pre">DEEPSEEK_API_KEY</span></code> environment variable and is not written into the script or report.</p>
+<p>Command used:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="p">.\</span><span class="n">file_analysis_agent</span><span class="p">.</span><span class="n">py</span> <span class="p">.\</span><span class="n">sample_document</span><span class="p">.</span><span class="n">txt</span> <span class="s2">&quot;According to this file, what are the required parts of Assignment 3 and what is the lowest-cost implementation path?&quot;</span>
+</pre></div>
+</div>
+<p>Model and endpoint:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Model: deepseek-v4-flash
+Endpoint: https://api.deepseek.com/chat/completions
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>According to the file, Assignment 3 requires:
+
+1. Creating an online agent with an API model that searches the web or analyzes a file to answer a specific question.
+2. Installing Ollama and deploying a local model, demonstrated through a terminal or simple UI.
+3. Integrating an LLM into an IDE (VS Code, Cursor, or PyCharm) and showing how the AI helps explain or refactor code.
+4. Writing a Markdown report documenting setup steps, challenges, solutions, and a reflection comparing online and local models.
+
+The lowest-cost implementation path described in the file is: one DeepSeek API call for file analysis, a small Ollama model for local testing, and using Continue in VS Code for IDE integration.
+</pre></div>
+</div>
+<p>Evidence file: <code class="docutils literal notranslate"><span class="pre">evidence/online_agent_run.txt</span></code></p>
+</section>
+<section id="local-model-deployment-with-ollama">
+<h2>3. Local Model Deployment with Ollama<a class="headerlink" href="#local-model-deployment-with-ollama" title="Link to this heading">¶</a></h2>
+<p>Ollama was installed on Windows through <code class="docutils literal notranslate"><span class="pre">winget</span></code>. The normal install command first failed because the Microsoft Store source could not connect, so I repeated the install while explicitly using the <code class="docutils literal notranslate"><span class="pre">winget</span></code> source:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">winget</span> <span class="n">install</span> <span class="p">-</span><span class="n">-id</span> <span class="n">Ollama</span><span class="p">.</span><span class="n">Ollama</span> <span class="n">-e</span> <span class="p">-</span><span class="n">-source</span> <span class="n">winget</span> <span class="p">-</span><span class="n">-accept-package-agreements</span> <span class="p">-</span><span class="n">-accept-source-agreements</span>
+</pre></div>
+</div>
+<p>After installation, I pulled the small local model:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">ollama</span> <span class="n">pull</span> <span class="n">qwen2</span><span class="p">.</span><span class="n">5</span><span class="p">:</span><span class="n">0</span><span class="p">.</span><span class="n">5b</span>
+</pre></div>
+</div>
+<p>Verification:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Command: ollama --version
+ollama version is 0.24.0
+
+Command: ollama list
+NAME            ID              SIZE      MODIFIED
+qwen2.5:0.5b    a8b0c5157701    397 MB    About a minute ago
+</pre></div>
+</div>
+<p>Basic interaction:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Command: ollama run qwen2.5:0.5b &quot;Explain what an AI agent is in two sentences.&quot;
+
+Output:
+An AI (Artificial Intelligence) agent is a software program or a system designed to execute tasks and perform actions autonomously based on predefined rules and instructions. It utilizes machine learning algorithms, natural language processing, and other artificial intelligence technologies to process information, make decisions, and adapt to user interactions in order to achieve specific goals.
+</pre></div>
+</div>
+<p>Note: PowerShell captured spinner/control characters from <code class="docutils literal notranslate"><span class="pre">ollama</span> <span class="pre">run</span></code>, so I recorded a clean equivalent response through Ollama’s local API with <code class="docutils literal notranslate"><span class="pre">stream=false</span></code>.</p>
+<p>Evidence file: <code class="docutils literal notranslate"><span class="pre">evidence/local_ollama_run.txt</span></code></p>
+</section>
+<section id="ide-integration-with-vs-code-and-continue">
+<h2>4. IDE Integration with VS Code and Continue<a class="headerlink" href="#ide-integration-with-vs-code-and-continue" title="Link to this heading">¶</a></h2>
+<p>VS Code was installed through <code class="docutils literal notranslate"><span class="pre">winget</span></code>, and the Continue extension was installed with the VS Code command line:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">code</span> <span class="p">-</span><span class="n">-install-extension</span> <span class="k">Continue</span><span class="p">.</span><span class="k">continue</span> <span class="p">-</span><span class="n">-force</span>
+</pre></div>
+</div>
+<p>Verification:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Command: code --version
+1.121.0
+f6cfa2ea2403534de03f069bdf160d06451ed282
+x64
+
+Command: code --list-extensions --show-versions
+continue.continue@1.2.22
+</pre></div>
+</div>
+<p>Continue was configured in <code class="docutils literal notranslate"><span class="pre">C:\Users\dust\.continue\config.yaml</span></code> to use the local Ollama model:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Assignment 3 Local Ollama</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+<span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+
+<span class="nt">models</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Qwen2.5 0.5B Local</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+<span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qwen2.5:0.5b</span>
+<span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://127.0.0.1:11434</span>
+<span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+</pre></div>
+</div>
+<p>I opened the workspace in VS Code and used the same local model configured for Continue to analyze <code class="docutils literal notranslate"><span class="pre">refactor_example.py</span></code>.</p>
+<p>Prompt:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Explain what refactor_example.py does, then provide a cleaner refactor while keeping the same behavior.
+</pre></div>
+</div>
+<p>The model correctly recognized that <code class="docutils literal notranslate"><span class="pre">summarize_scores</span></code> calculates the average and best score, but its suggested refactor missed the empty-list case and incorrectly showed the average of <code class="docutils literal notranslate"><span class="pre">[78,</span> <span class="pre">92,</span> <span class="pre">85]</span></code> as <code class="docutils literal notranslate"><span class="pre">90</span></code>. I treated this as a useful review signal instead of accepting it blindly. I manually checked the behavior and wrote a corrected refactor:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">summarize_scores</span><span class="p">(</span><span class="n">scores</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">scores</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;average&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;best&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;average&quot;</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">),</span>
+        <span class="s2">&quot;best&quot;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">scores</span><span class="p">),</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>Both the original and refactored versions produced the same output for <code class="docutils literal notranslate"><span class="pre">[78,</span> <span class="pre">92,</span> <span class="pre">85]</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{&#39;average&#39;: 85.0, &#39;best&#39;: 92}
+</pre></div>
+</div>
+<p>Evidence files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">evidence/ide_continue_setup.txt</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">evidence/ide_refactor_response.txt</span></code></p></li>
+</ul>
+</section>
+<section id="challenges-and-solutions">
+<h2>5. Challenges and Solutions<a class="headerlink" href="#challenges-and-solutions" title="Link to this heading">¶</a></h2>
+<p>The first challenge was installation reliability. <code class="docutils literal notranslate"><span class="pre">winget</span></code> tried to query the Microsoft Store source and failed, but specifying <code class="docutils literal notranslate"><span class="pre">--source</span> <span class="pre">winget</span></code> solved the issue.</p>
+<p>The second challenge was command availability after installation. The current PowerShell session did not immediately recognize <code class="docutils literal notranslate"><span class="pre">ollama</span></code> and <code class="docutils literal notranslate"><span class="pre">code</span></code> from <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, so I used their full installed paths for verification.</p>
+<p>The third challenge was local model quality. The small <code class="docutils literal notranslate"><span class="pre">qwen2.5:0.5b</span></code> model was cheap and fast enough to run locally, but it made mistakes in the refactoring example. I solved this by verifying the output with Python and keeping the empty-list behavior in the final refactor.</p>
+</section>
+<section id="reflection">
+<h2>6. Reflection<a class="headerlink" href="#reflection" title="Link to this heading">¶</a></h2>
+<p>The online DeepSeek model was easier to use once the API key was available. It followed the file-analysis task accurately, produced a clear answer, and required no local model download. Its disadvantages are that it depends on internet access, uses an API key, may cost money if used heavily, and sends the file content to a remote service.</p>
+<p>The local Ollama model was better for privacy and repeated experimentation because it runs on my computer and does not consume API credits. However, setup took longer because Ollama and the model had to be downloaded, and the small 0.5B model was less reliable. In the refactoring task, I had to check the model’s suggestion manually because it made a logic mistake.</p>
+<p>For my workflow, the online model is better for accurate file analysis and higher-quality answers. The local model is useful inside the IDE for quick explanations, rough refactoring ideas, and low-cost practice, but I should not trust it without testing. The most practical setup is to use the local model for quick drafts and explanations, then verify important code changes with tests or a stronger model.</p>
+</section>
+<section id="rubric-checklist">
+<h2>7. Rubric Checklist<a class="headerlink" href="#rubric-checklist" title="Link to this heading">¶</a></h2>
+<p>| Criteria | Evidence |
+| — | — |
+| Online Agent, file analysis | <code class="docutils literal notranslate"><span class="pre">file_analysis_agent.py</span></code>, <code class="docutils literal notranslate"><span class="pre">sample_document.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">evidence/online_agent_run.txt</span></code> |
+| Local Model, Ollama deployment | <code class="docutils literal notranslate"><span class="pre">evidence/local_ollama_run.txt</span></code> |
+| IDE Integration | VS Code 1.121.0, Continue 1.2.22, <code class="docutils literal notranslate"><span class="pre">C:\Users\dust\.continue\config.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">evidence/ide_continue_setup.txt</span></code> |
+| Documentation and Reflection | This Markdown report |</p>
+<p>References:</p>
+<ul class="simple">
+<li><p>DeepSeek API documentation: https://api-docs.deepseek.com/</p></li>
+<li><p>Ollama Windows download: https://ollama.com/download/windows</p></li>
+<li><p>Ollama qwen2.5 model page: https://ollama.com/library/qwen2.5</p></li>
+<li><p>Continue VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=Continue.continue</p></li>
+</ul>
+</section>
+<section id="online-attachments">
+<h2>8. Online Attachments<a class="headerlink" href="#online-attachments" title="Link to this heading">¶</a></h2>
+<ul>
+  <li><a href="_static/assignment3/file_analysis_agent.py">file_analysis_agent.py</a></li>
+  <li><a href="_static/assignment3/sample_document.txt">sample_document.txt</a></li>
+  <li><a href="_static/assignment3/refactor_example.py">refactor_example.py</a></li>
+  <li><a href="_static/assignment3/refactor_example_refactored.py">refactor_example_refactored.py</a></li>
+  <li><a href="_static/assignment3/online_agent_run.txt">online_agent_run.txt</a></li>
+  <li><a href="_static/assignment3/local_ollama_run.txt">local_ollama_run.txt</a></li>
+  <li><a href="_static/assignment3/ide_continue_setup.txt">ide_continue_setup.txt</a></li>
+  <li><a href="_static/assignment3/ide_refactor_response.txt">ide_refactor_response.txt</a></li>
+</ul></section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">My Personal Blog</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignment1_report.html">Assignment 1 Report: Remote Development Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignment2_report.html">Assignment 2 Report: Static Personal Blog Website</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Assignment 3: Deployment and Integration of AI Agents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#objective-and-setup">1. Objective and Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#online-agent-with-deepseek">2. Online Agent with DeepSeek</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#local-model-deployment-with-ollama">3. Local Model Deployment with Ollama</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ide-integration-with-vs-code-and-continue">4. IDE Integration with VS Code and Continue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#challenges-and-solutions">5. Challenges and Solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reflection">6. Reflection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rubric-checklist">7. Rubric Checklist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#online-attachments">8. Online Attachments</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="assignment2_report.html" title="previous chapter">Assignment 2 Report: Static Personal Blog Website</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026, Student.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/assignment3_report.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
