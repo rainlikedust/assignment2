@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Defend Your Thesis: Web Game Report &#8212; My Personal Blog 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Assignment 3: Deployment and Integration of AI Agents" href="assignment3_report.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="defend-your-thesis-web-game-report">
+<h1>Defend Your Thesis: Web Game Report<a class="headerlink" href="#defend-your-thesis-web-game-report" title="Link to this heading">¶</a></h1>
+<section id="background-and-design">
+<h2>1. Background and Design<a class="headerlink" href="#background-and-design" title="Link to this heading">¶</a></h2>
+<p>For this assignment I chose Option A, <strong>Defend Your Thesis</strong>. The goal was to turn the class game idea into a stable and playable web game. The player controls a graduate student who protects a thesis from academic threats: Bugs, Deadlines, and Peer Reviewers.</p>
+<p>The design uses a survival-defense loop because it is easy to understand during an in-class presentation and clearly demonstrates functional game logic. The thesis is placed at the center of the map, enemies spawn from the edges, and the player must move, aim, and shoot to survive multiple waves.</p>
+<p>The game includes:</p>
+<ul class="simple">
+<li><p>A character selection screen.</p></li>
+<li><p>Three student roles with different stats.</p></li>
+<li><p>Keyboard movement and mouse shooting.</p></li>
+<li><p>Enemy waves, score tracking, health, thesis integrity, pause, restart, and game-over logic.</p></li>
+<li><p>A pixel-style academic/lab visual theme.</p></li>
+</ul>
+<p>I did not include the bonus AI assistant because I selected the non-bonus scope. The focus is stability, clear functionality, and deployability.</p>
+</section>
+<section id="tech-stack">
+<h2>2. Tech Stack<a class="headerlink" href="#tech-stack" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Hardware: personal Windows computer.</p></li>
+<li><p>Operating system: Windows, tested from PowerShell.</p></li>
+<li><p>Runtime: modern desktop web browser.</p></li>
+<li><p>Languages: HTML, CSS, and JavaScript.</p></li>
+<li><p>Graphics: HTML5 Canvas.</p></li>
+<li><p>Build tools: none. The game is a zero-dependency static website.</p></li>
+<li><p>Deployment target: GitHub Pages.</p></li>
+<li><p>AI development partner: OpenAI Codex/GPT-5 in the Codex desktop environment.</p></li>
+</ul>
+<p>This stack was chosen because GitHub Pages can host static files directly. It also supports cross-platform use because the same webpage can run on Windows, macOS, Linux, and most modern mobile browsers.</p>
+</section>
+<section id="development-log-and-ai-assistance">
+<h2>3. Development Log and AI Assistance<a class="headerlink" href="#development-log-and-ai-assistance" title="Link to this heading">¶</a></h2>
+<section id="architecture-planning">
+<h3>Architecture Planning<a class="headerlink" href="#architecture-planning" title="Link to this heading">¶</a></h3>
+<p>I used the LLM to convert the assignment requirements into an implementation plan. The plan separated the project into:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">index.html</span></code> for the game shell and UI overlays.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">styles.css</span></code> for the pixel-academic visual style and responsive layout.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">game.js</span></code> for gameplay state, input, collision detection, rendering, waves, and scoring.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">README.md</span></code> and <code class="docutils literal notranslate"><span class="pre">REPORT.md</span></code> for documentation and deployment instructions.</p></li>
+</ul>
+<p>The AI recommended a zero-dependency Canvas game instead of a framework. This reduced deployment risk because no package installation or build step is required.</p>
+</section>
+<section id="gameplay-implementation">
+<h3>Gameplay Implementation<a class="headerlink" href="#gameplay-implementation" title="Link to this heading">¶</a></h3>
+<p>The LLM helped design the core game loop:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>read input -&gt; update player -&gt; spawn enemies -&gt; move bullets/enemies -&gt; check collisions -&gt; update score/HUD -&gt; draw canvas
+</pre></div>
+</div>
+<p>Specific features implemented with AI assistance include:</p>
+<ul class="simple">
+<li><p>Character stat balancing.</p></li>
+<li><p>Pointer-based aiming.</p></li>
+<li><p>Bullet/enemy collision detection using circle distance checks.</p></li>
+<li><p>Enemy targeting toward the thesis.</p></li>
+<li><p>Wave progression and increasing enemy pressure.</p></li>
+<li><p>Game-over conditions for both player health and thesis integrity.</p></li>
+</ul>
+</section>
+<section id="problem-solving">
+<h3>Problem Solving<a class="headerlink" href="#problem-solving" title="Link to this heading">¶</a></h3>
+<p>During planning, the environment was checked first. Node.js was not installed, but Python was available. Because of that, the implementation avoided npm and build tools. The local test path uses:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">-m</span> <span class="n">http</span><span class="p">.</span><span class="n">server</span> <span class="n">8000</span>
+</pre></div>
+</div>
+<p>The LLM also helped avoid overengineering. Instead of using external sprites or a complex game engine, the final version draws pixel-style objects directly with Canvas rectangles. This makes the project easier to inspect, explain, and deploy.</p>
+</section>
+<section id="handling-hallucinations-and-errors">
+<h3>Handling Hallucinations and Errors<a class="headerlink" href="#handling-hallucinations-and-errors" title="Link to this heading">¶</a></h3>
+<p>The AI sometimes suggests tools or workflows that may not exist on the local machine. I checked the environment before following those suggestions. For example:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">node</span></code> was not available, so I did not use Vite, React, or npm.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gh</span></code> was not available, so GitHub deployment is documented through normal Git commands and manual GitHub Pages setup.</p></li>
+<li><p>Collision and wave logic were kept simple and manually reviewed to avoid fragile generated code.</p></li>
+</ul>
+<p>This process helped keep the final application realistic for the actual computer and assignment conditions.</p>
+</section>
+</section>
+<section id="results">
+<h2>4. Results<a class="headerlink" href="#results" title="Link to this heading">¶</a></h2>
+<p>The result is a playable static web game located in:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>G:\code\SOWTF 3\defend-your-thesis-game
+</pre></div>
+</div>
+<p>Local demo:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>http://localhost:8000
+</pre></div>
+</div>
+<p>GitHub Pages demo after deployment:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>https://rainlikedust.github.io/assignment2/_static/defend-your-thesis/index.html
+</pre></div>
+</div>
+<p>Live game link:</p>
+<p><a class="reference external" href="https://rainlikedust.github.io/assignment2/_static/defend-your-thesis/index.html">Play Defend Your Thesis</a></p>
+<p>Generated evidence screenshots:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>evidence/local-home-screen.png
+evidence/local-gameplay.png
+evidence/mobile-home-screen.png
+</pre></div>
+</div>
+<p>The game demonstrates the required features:</p>
+<ul class="simple">
+<li><p>Functional software that runs in a browser.</p></li>
+<li><p>Character selection.</p></li>
+<li><p>Keyboard and mouse controls.</p></li>
+<li><p>Survival/defense game logic.</p></li>
+<li><p>Score and game-over logic.</p></li>
+<li><p>Clear documentation of AI-assisted development.</p></li>
+</ul>
+</section>
+<section id="presentation-notes">
+<h2>5. Presentation Notes<a class="headerlink" href="#presentation-notes" title="Link to this heading">¶</a></h2>
+<p>For the in-class presentation, the recommended flow is:</p>
+<ol class="simple">
+<li><p>Open the GitHub Pages URL or local server URL.</p></li>
+<li><p>Show the character selection screen.</p></li>
+<li><p>Choose one character and explain the role differences.</p></li>
+<li><p>Demonstrate movement, aiming, shooting, and enemy waves.</p></li>
+<li><p>Let the thesis take damage to show health and game-over logic.</p></li>
+<li><p>Briefly explain how LLMs helped with architecture, bug fixing, and documentation.</p></li>
+</ol>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">My Personal Blog</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignment1_report.html">Assignment 1 Report: Remote Development Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignment2_report.html">Assignment 2 Report: Static Personal Blog Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignment3_report.html">Assignment 3: Deployment and Integration of AI Agents</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Defend Your Thesis: Web Game Report</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#background-and-design">1. Background and Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tech-stack">2. Tech Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#development-log-and-ai-assistance">3. Development Log and AI Assistance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#results">4. Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#presentation-notes">5. Presentation Notes</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="assignment3_report.html" title="previous chapter">Assignment 3: Deployment and Integration of AI Agents</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026, Student.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/defend_your_thesis_report.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

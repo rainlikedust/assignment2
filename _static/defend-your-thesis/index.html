@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Defend Your Thesis</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Option A Web Game</p>
+          <h1>Defend Your Thesis</h1>
+        </div>
+        <div class="topbar-actions">
+          <button id="pauseButton" class="icon-button" type="button" aria-label="Pause game" title="Pause">
+            <span aria-hidden="true">II</span>
+          </button>
+          <button id="restartButton" class="text-button" type="button">Restart</button>
+        </div>
+      </header>
+
+      <main class="game-layout">
+        <section class="game-stage" aria-label="Defend Your Thesis game">
+          <div class="hud" aria-live="polite">
+            <div class="hud-item">
+              <span>Score</span>
+              <strong id="scoreValue">0</strong>
+            </div>
+            <div class="hud-item">
+              <span>Wave</span>
+              <strong id="waveValue">1</strong>
+            </div>
+            <div class="hud-item">
+              <span>Student</span>
+              <strong id="healthValue">100</strong>
+            </div>
+            <div class="hud-item">
+              <span>Thesis</span>
+              <strong id="thesisValue">100</strong>
+            </div>
+          </div>
+
+          <canvas id="gameCanvas" width="1120" height="720" aria-label="Game canvas"></canvas>
+
+          <div id="startOverlay" class="overlay is-visible">
+            <div class="overlay-card select-panel">
+              <p class="eyebrow">Survival Defense</p>
+              <h2>Choose Your Student</h2>
+              <div class="character-grid" id="characterGrid"></div>
+              <button id="startButton" class="primary-button" type="button" disabled>Start Defense</button>
+            </div>
+          </div>
+
+          <div id="gameOverOverlay" class="overlay">
+            <div class="overlay-card">
+              <p class="eyebrow">Final Result</p>
+              <h2 id="gameOverTitle">Defense Failed</h2>
+              <p id="gameOverMessage" class="result-copy"></p>
+              <div class="result-stats">
+                <span id="finalScore">Score 0</span>
+                <span id="finalWave">Wave 1</span>
+              </div>
+              <button id="playAgainButton" class="primary-button" type="button">Play Again</button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="side-panel">
+          <section>
+            <p class="eyebrow">Threats</p>
+            <div class="threat-list">
+              <article>
+                <span class="threat-icon bug"></span>
+                <div>
+                  <h3>Bug</h3>
+                  <p>Small, fast, and easy to underestimate.</p>
+                </div>
+              </article>
+              <article>
+                <span class="threat-icon deadline"></span>
+                <div>
+                  <h3>Deadline</h3>
+                  <p>Heavy pressure that hits the thesis hard.</p>
+                </div>
+              </article>
+              <article>
+                <span class="threat-icon reviewer"></span>
+                <div>
+                  <h3>Peer Reviewer</h3>
+                  <p>Durable critique that arrives in waves.</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section>
+            <p class="eyebrow">Build</p>
+            <div class="build-card">
+              <span>Static HTML Canvas</span>
+              <strong>GitHub Pages Ready</strong>
+            </div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
