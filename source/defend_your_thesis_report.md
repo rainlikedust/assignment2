@@ -16,6 +16,59 @@ The game includes:
 
 I did not include the bonus AI assistant because I selected the non-bonus scope. The focus is stability, clear functionality, and deployability.
 
+### Requirement Checklist
+
+<table>
+  <thead>
+    <tr>
+      <th>Assignment requirement</th>
+      <th>Implementation evidence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Choose one project option</td>
+      <td>Option A: <strong>Defend Your Thesis</strong> web game.</td>
+    </tr>
+    <tr>
+      <td>Functional software</td>
+      <td>Hosted on GitHub Pages as a playable browser game.</td>
+    </tr>
+    <tr>
+      <td>Character selection page</td>
+      <td>Three selectable student roles appear before the game starts.</td>
+    </tr>
+    <tr>
+      <td>Survival/defense mechanics</td>
+      <td>The student defends the thesis from Bugs, Deadlines, and Peer Reviewers.</td>
+    </tr>
+    <tr>
+      <td>Keyboard/mouse controls</td>
+      <td><code>WASD</code>/arrow movement, mouse aiming, click/hold to shoot, <code>P</code>/Space pause.</td>
+    </tr>
+    <tr>
+      <td>Game over/score logic</td>
+      <td>Score, wave, student health, thesis integrity, restart, and final result screen are implemented in <code>game.js</code>.</td>
+    </tr>
+    <tr>
+      <td>AI-assisted development documentation</td>
+      <td>Architecture planning, problem solving, hallucination handling, and documentation workflow are recorded below.</td>
+    </tr>
+    <tr>
+      <td>Screenshots/results</td>
+      <td>Screenshots are embedded in the Results section of this report.</td>
+    </tr>
+    <tr>
+      <td>Web deployment</td>
+      <td>Public URL: <code>https://rainlikedust.github.io/assignment2/_static/defend-your-thesis/index.html</code>.</td>
+    </tr>
+    <tr>
+      <td>Bonus challenges</td>
+      <td>Not attempted; the submitted scope focuses on the required points.</td>
+    </tr>
+  </tbody>
+</table>
+
 ## 2. Tech Stack
 
 - Hardware: personal Windows computer.
@@ -41,6 +94,35 @@ I used the LLM to convert the assignment requirements into an implementation pla
 - `README.md` and `REPORT.md` for documentation and deployment instructions.
 
 The AI recommended a zero-dependency Canvas game instead of a framework. This reduced deployment risk because no package installation or build step is required.
+
+Representative AI interaction:
+
+<table>
+  <thead>
+    <tr>
+      <th>My prompt / task</th>
+      <th>LLM contribution</th>
+      <th>How I verified it</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Plan Option A as a deployable web game.</td>
+      <td>Proposed a static Canvas architecture with separate HTML, CSS, and JavaScript files.</td>
+      <td>Checked the local environment and confirmed that Node.js was unavailable, so the zero-dependency plan was the most stable path.</td>
+    </tr>
+    <tr>
+      <td>Implement movement, aiming, bullets, and collisions.</td>
+      <td>Suggested a game loop with player state, enemy state, bullet arrays, and circle-distance collision checks.</td>
+      <td>Tested the game in the browser and verified that enemies, bullets, health, score, and waves update correctly.</td>
+    </tr>
+    <tr>
+      <td>Prepare assignment documentation.</td>
+      <td>Helped organize the report around background, tech stack, development log, hallucination handling, screenshots, and demo links.</td>
+      <td>Compared the report against the assignment rubric and added this checklist plus embedded screenshots.</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Gameplay Implementation
 
@@ -103,12 +185,28 @@ Live game link:
 
 [Play Defend Your Thesis](https://rainlikedust.github.io/assignment2/_static/defend-your-thesis/index.html)
 
-Generated evidence screenshots:
+### Screenshot Evidence
+
+The screenshots below are included directly in the deployed report as proof that the web game runs and renders correctly.
+
+**Character selection screen**
+
+<img src="_static/defend-your-thesis/evidence/local-home-screen.png" alt="Defend Your Thesis character selection screen" style="display: block; max-width: 100%; margin: 0 0 24px 0; border: 1px solid #cccccc;">
+
+**Gameplay screen with thesis, player, HUD, and academic threats**
+
+<img src="_static/defend-your-thesis/evidence/local-gameplay.png" alt="Defend Your Thesis gameplay screen" style="display: block; max-width: 100%; margin: 0 0 24px 0; border: 1px solid #cccccc;">
+
+**Mobile-width layout test**
+
+<img src="_static/defend-your-thesis/evidence/mobile-home-screen.png" alt="Defend Your Thesis mobile layout screenshot" style="display: block; max-width: 100%; margin: 0 0 24px 0; border: 1px solid #cccccc;">
+
+Evidence files:
 
 ```text
-evidence/local-home-screen.png
-evidence/local-gameplay.png
-evidence/mobile-home-screen.png
+source/_static/defend-your-thesis/evidence/local-home-screen.png
+source/_static/defend-your-thesis/evidence/local-gameplay.png
+source/_static/defend-your-thesis/evidence/mobile-home-screen.png
 ```
 
 The game demonstrates the required features:
