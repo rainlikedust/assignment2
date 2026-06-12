@@ -16,12 +16,16 @@
   const finalWave = document.getElementById("finalWave");
   const characterGrid = document.getElementById("characterGrid");
   const startButton = document.getElementById("startButton");
+  const cheatButton = document.getElementById("cheatButton");
+  const sideCheatButton = document.getElementById("sideCheatButton");
+  const cheatStatus = document.getElementById("cheatStatus");
   const pauseButton = document.getElementById("pauseButton");
   const restartButton = document.getElementById("restartButton");
   const playAgainButton = document.getElementById("playAgainButton");
 
   const WIDTH = canvas.width;
   const HEIGHT = canvas.height;
+  const CHEAT_CODE = "thesis";
   const keys = new Set();
   const pointer = { x: WIDTH / 2, y: HEIGHT / 2, down: false };
 
@@ -99,6 +103,7 @@
 
   let selectedCharacter = null;
   let state = null;
+  let cheatBuffer = "";
   let lastTime = performance.now();
   let animationFrame = 0;
 
@@ -134,6 +139,10 @@
       bullets: [],
       enemies: [],
       particles: [],
+      shockwaves: [],
+      cheatBeams: [],
+      cheatCooldown: 0,
+      cheatBanner: 0,
     };
   }
 
@@ -184,6 +193,9 @@
     if (params.get("demo") === "1") {
       seedDemoThreats();
     }
+    if (params.get("cheat") === "1") {
+      activateCheatAttack();
+    }
   }
 
   function seedDemoThreats() {
@@ -215,12 +227,14 @@
   function startGame() {
     if (!selectedCharacter) return;
     state = createInitialState(selectedCharacter);
+    cheatBuffer = "";
     startOverlay.classList.remove("is-visible");
     gameOverOverlay.classList.remove("is-visible");
     pauseButton.disabled = false;
     pauseButton.setAttribute("aria-label", "Pause game");
     pauseButton.title = "Pause";
     pauseButton.querySelector("span").textContent = "II";
+    setCheatStatus("Citation Storm ready.");
     updateHud();
     lastTime = performance.now();
   }
@@ -228,14 +242,22 @@
   function resetToSelection() {
     state = null;
     keys.clear();
+    cheatBuffer = "";
     selectedCharacter = null;
     startButton.disabled = true;
     document.querySelectorAll(".character-card").forEach((card) => card.classList.remove("is-selected"));
     startOverlay.classList.add("is-visible");
     gameOverOverlay.classList.remove("is-visible");
     pauseButton.disabled = true;
+    setCheatStatus("Start a defense, then type THESIS.");
     drawTitleScene();
     updateHud();
+  }
+
+  function setCheatStatus(message) {
+    if (cheatStatus) {
+      cheatStatus.textContent = message;
+    }
   }
 
   function pauseGame() {
@@ -344,6 +366,67 @@
     }
   }
 
+  function activateCheatAttack() {
+    if (!state || state.mode !== "playing") {
+      setCheatStatus("Choose a student and start the defense first.");
+      return;
+    }
+
+    if (state.cheatCooldown > 0) {
+      setCheatStatus(`Citation Storm recharging: ${Math.ceil(state.cheatCooldown)}s.`);
+      return;
+    }
+
+    const player = state.player;
+    const beamColors = ["#38bdf8", "#f43f5e", "#facc15", "#22c55e", "#a855f7", "#fb923c"];
+    const defeatedCount = state.enemies.length;
+
+    state.cheatBanner = 2.1;
+    state.cheatCooldown = 8;
+    state.shake = 0.45;
+    state.shockwaves.push({ x: player.x, y: player.y, radius: 18, maxRadius: 560, life: 1.25, color: "#38bdf8" });
+    state.shockwaves.push({ x: player.x, y: player.y, radius: 8, maxRadius: 430, life: 1.45, color: "#facc15" });
+
+    for (let i = 0; i < 36; i += 1) {
+      const angle = (Math.PI * 2 * i) / 36;
+      state.cheatBeams.push({
+        x: player.x,
+        y: player.y,
+        angle,
+        length: 760,
+        width: 10 + (i % 3) * 4,
+        color: beamColors[i % beamColors.length],
+        life: 1.05 + (i % 4) * 0.08,
+      });
+    }
+
+    for (let i = 0; i < 120; i += 1) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 140 + Math.random() * 420;
+      state.particles.push({
+        x: player.x,
+        y: player.y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        color: beamColors[i % beamColors.length],
+        size: 4 + Math.random() * 7,
+        life: 0.55 + Math.random() * 0.75,
+      });
+    }
+
+    state.enemies.forEach((enemy) => {
+      state.score += enemy.points + state.wave * 8;
+      state.waveKills += 1;
+      addParticles(enemy.x, enemy.y, enemy.color, 18);
+    });
+    state.enemies = [];
+    state.player.health = clamp(state.player.health + 18, 0, state.player.maxHealth);
+    state.thesis.health = clamp(state.thesis.health + 12, 0, state.thesis.maxHealth);
+
+    setCheatStatus(defeatedCount > 0 ? `Citation Storm cleared ${defeatedCount} threats.` : "Citation Storm fired. No threats survived the peer-reviewed blast.");
+    updateHud();
+  }
+
   function update(dt, now) {
     if (!state || state.mode !== "playing") return;
 
@@ -365,6 +448,9 @@
     if (pointer.down) {
       fireBullet(now);
     }
+
+    state.cheatCooldown = Math.max(0, state.cheatCooldown - dt);
+    state.cheatBanner = Math.max(0, state.cheatBanner - dt);
 
     state.spawnTimer += dt * 1000;
     if (state.spawnTimer >= state.spawnInterval && state.waveKills < state.waveTarget) {
@@ -436,6 +522,16 @@
       particle.life -= dt;
     });
     state.particles = state.particles.filter((particle) => particle.life > 0);
+    state.shockwaves.forEach((wave) => {
+      wave.radius += (wave.maxRadius - wave.radius) * Math.min(1, dt * 5.4);
+      wave.life -= dt;
+    });
+    state.shockwaves = state.shockwaves.filter((wave) => wave.life > 0);
+    state.cheatBeams.forEach((beam) => {
+      beam.life -= dt;
+      beam.angle += dt * 1.4;
+    });
+    state.cheatBeams = state.cheatBeams.filter((beam) => beam.life > 0);
     state.shake = Math.max(0, state.shake - dt);
 
     if (state.waveKills >= state.waveTarget && state.enemies.length === 0) {
@@ -643,8 +739,9 @@
     if (state) {
       drawThesis(state.thesis);
       state.bullets.forEach(drawBullet);
-      state.enemies.forEach(drawEnemy);
-      drawPlayer(state.player);
+    state.enemies.forEach(drawEnemy);
+    drawPlayer(state.player);
+      drawCheatEffects();
       drawParticles();
     } else {
       drawThesis({ x: WIDTH / 2, y: HEIGHT / 2, radius: 58, health: 100, maxHealth: 100 });
@@ -652,6 +749,59 @@
 
     ctx.restore();
     drawPaused();
+  }
+
+  function drawCheatEffects() {
+    if (!state) return;
+
+    state.cheatBeams.forEach((beam) => {
+      const alpha = clamp(beam.life * 2.6, 0, 0.86);
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.translate(beam.x, beam.y);
+      ctx.rotate(beam.angle);
+      ctx.fillStyle = beam.color;
+      ctx.fillRect(16, -beam.width / 2, beam.length, beam.width);
+      ctx.fillStyle = "#fffaf0";
+      ctx.fillRect(20, -2, beam.length * 0.72, 4);
+      ctx.restore();
+      ctx.globalAlpha = 1;
+    });
+
+    state.shockwaves.forEach((wave) => {
+      ctx.save();
+      ctx.globalAlpha = clamp(wave.life, 0, 0.8);
+      ctx.strokeStyle = wave.color;
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "#fffaf0";
+      ctx.beginPath();
+      ctx.arc(wave.x, wave.y, wave.radius * 0.74, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+      ctx.globalAlpha = 1;
+    });
+
+    if (state.cheatBanner > 0) {
+      const alpha = clamp(state.cheatBanner, 0, 1);
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = "rgba(25, 33, 42, 0.76)";
+      ctx.fillRect(WIDTH / 2 - 235, 86, 470, 54);
+      ctx.strokeStyle = "#facc15";
+      ctx.lineWidth = 4;
+      ctx.strokeRect(WIDTH / 2 - 235, 86, 470, 54);
+      ctx.fillStyle = "#fffaf0";
+      ctx.font = "900 28px Segoe UI, Arial";
+      ctx.textAlign = "center";
+      ctx.fillText("CITATION STORM", WIDTH / 2, 121);
+      ctx.textAlign = "left";
+      ctx.restore();
+      ctx.globalAlpha = 1;
+    }
   }
 
   function loop(now) {
@@ -670,6 +820,14 @@
     if (key === "p" || key === " ") {
       pauseGame();
       return;
+    }
+    if (/^[a-z]$/.test(key)) {
+      cheatBuffer = (cheatBuffer + key).slice(-CHEAT_CODE.length);
+      if (cheatBuffer === CHEAT_CODE) {
+        activateCheatAttack();
+        cheatBuffer = "";
+        return;
+      }
     }
     keys.add(key);
   });
@@ -700,6 +858,8 @@
   });
 
   startButton.addEventListener("click", startGame);
+  cheatButton.addEventListener("click", activateCheatAttack);
+  sideCheatButton.addEventListener("click", activateCheatAttack);
   pauseButton.addEventListener("click", pauseGame);
   restartButton.addEventListener("click", resetToSelection);
   playAgainButton.addEventListener("click", resetToSelection);

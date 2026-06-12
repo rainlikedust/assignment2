@@ -45,6 +45,7 @@
 <li><p>Three student roles with different stats.</p></li>
 <li><p>Keyboard movement and mouse shooting.</p></li>
 <li><p>Enemy waves, score tracking, health, thesis integrity, pause, restart, and game-over logic.</p></li>
+<li><p>A cheat code and cheat button that trigger a special Citation Storm attack.</p></li>
 <li><p>A pixel-style academic/lab visual theme.</p></li>
 </ul>
 <p>I did not include the bonus AI assistant because I selected the non-bonus scope. The focus is stability, clear functionality, and deployability.</p>
@@ -76,7 +77,7 @@
     </tr>
     <tr>
       <td>Keyboard/mouse controls</td>
-      <td><code>WASD</code>/arrow movement, mouse aiming, click/hold to shoot, <code>P</code>/Space pause.</td>
+      <td><code>WASD</code>/arrow movement, mouse aiming, click/hold to shoot, <code>P</code>/Space pause, plus optional cheat code <code>THESIS</code>.</td>
     </tr>
     <tr>
       <td>Game over/score logic</td>
@@ -168,6 +169,7 @@
 <li><p>Enemy targeting toward the thesis.</p></li>
 <li><p>Wave progression and increasing enemy pressure.</p></li>
 <li><p>Game-over conditions for both player health and thesis integrity.</p></li>
+<li><p>Cheat code handling and a special attack effect using beams, shockwaves, and particles.</p></li>
 </ul>
 </section>
 <section id="problem-solving">
@@ -210,10 +212,12 @@
 <p>The screenshots below are included directly in the deployed report as proof that the web game runs and renders correctly.</p>
 <p><strong>Character selection screen</strong></p>
 <img src="_static/defend-your-thesis/evidence/local-home-screen.png" alt="Defend Your Thesis character selection screen" style="display: block; max-width: 100%; margin: 0 0 24px 0; border: 1px solid #cccccc;"><p><strong>Gameplay screen with thesis, player, HUD, and academic threats</strong></p>
-<img src="_static/defend-your-thesis/evidence/local-gameplay.png" alt="Defend Your Thesis gameplay screen" style="display: block; max-width: 100%; margin: 0 0 24px 0; border: 1px solid #cccccc;"><p><strong>Mobile-width layout test</strong></p>
+<img src="_static/defend-your-thesis/evidence/local-gameplay.png" alt="Defend Your Thesis gameplay screen" style="display: block; max-width: 100%; margin: 0 0 24px 0; border: 1px solid #cccccc;"><p><strong>Cheat attack: Citation Storm</strong></p>
+<img src="_static/defend-your-thesis/evidence/cheat-attack.png" alt="Defend Your Thesis Citation Storm cheat attack" style="display: block; max-width: 100%; margin: 0 0 24px 0; border: 1px solid #cccccc;"><p><strong>Mobile-width layout test</strong></p>
 <img src="_static/defend-your-thesis/evidence/mobile-home-screen.png" alt="Defend Your Thesis mobile layout screenshot" style="display: block; max-width: 100%; margin: 0 0 24px 0; border: 1px solid #cccccc;"><p>Evidence files:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>source/_static/defend-your-thesis/evidence/local-home-screen.png
 source/_static/defend-your-thesis/evidence/local-gameplay.png
+source/_static/defend-your-thesis/evidence/cheat-attack.png
 source/_static/defend-your-thesis/evidence/mobile-home-screen.png
 </pre></div>
 </div>
@@ -222,6 +226,7 @@ source/_static/defend-your-thesis/evidence/mobile-home-screen.png
 <li><p>Functional software that runs in a browser.</p></li>
 <li><p>Character selection.</p></li>
 <li><p>Keyboard and mouse controls.</p></li>
+<li><p>Cheat code: type <code class="docutils literal notranslate"><span class="pre">THESIS</span></code> during play, or press the <code class="docutils literal notranslate"><span class="pre">Cheat</span> <span class="pre">Attack</span></code> button.</p></li>
 <li><p>Survival/defense game logic.</p></li>
 <li><p>Score and game-over logic.</p></li>
 <li><p>Clear documentation of AI-assisted development.</p></li>
@@ -235,9 +240,9 @@ source/_static/defend-your-thesis/evidence/mobile-home-screen.png
 <li><p>Open the GitHub Pages URL or local server URL.</p></li>
 <li><p>Show the character selection screen.</p></li>
 <li><p>Choose one character and explain the role differences.</p></li>
-<li><p>Demonstrate movement, aiming, shooting, and enemy waves.</p></li>
+<li><p>Demonstrate movement, aiming, shooting, enemy waves, and the <code class="docutils literal notranslate"><span class="pre">THESIS</span></code> cheat code.</p></li>
 <li><p>Let the thesis take damage to show health and game-over logic.</p></li>
-<li><p>Briefly explain how LLMs helped with architecture, bug fixing, and documentation.</p></li>
+<li><p>Briefly explain how LLMs helped with architecture, bug fixing, cheat attack effects, and documentation.</p></li>
 </ol>
 </section>
 </section>

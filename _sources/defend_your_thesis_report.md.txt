@@ -12,6 +12,7 @@ The game includes:
 - Three student roles with different stats.
 - Keyboard movement and mouse shooting.
 - Enemy waves, score tracking, health, thesis integrity, pause, restart, and game-over logic.
+- A cheat code and cheat button that trigger a special Citation Storm attack.
 - A pixel-style academic/lab visual theme.
 
 I did not include the bonus AI assistant because I selected the non-bonus scope. The focus is stability, clear functionality, and deployability.
@@ -44,7 +45,7 @@ I did not include the bonus AI assistant because I selected the non-bonus scope.
     </tr>
     <tr>
       <td>Keyboard/mouse controls</td>
-      <td><code>WASD</code>/arrow movement, mouse aiming, click/hold to shoot, <code>P</code>/Space pause.</td>
+      <td><code>WASD</code>/arrow movement, mouse aiming, click/hold to shoot, <code>P</code>/Space pause, plus optional cheat code <code>THESIS</code>.</td>
     </tr>
     <tr>
       <td>Game over/score logic</td>
@@ -140,6 +141,7 @@ Specific features implemented with AI assistance include:
 - Enemy targeting toward the thesis.
 - Wave progression and increasing enemy pressure.
 - Game-over conditions for both player health and thesis integrity.
+- Cheat code handling and a special attack effect using beams, shockwaves, and particles.
 
 ### Problem Solving
 
@@ -197,6 +199,10 @@ The screenshots below are included directly in the deployed report as proof that
 
 <img src="_static/defend-your-thesis/evidence/local-gameplay.png" alt="Defend Your Thesis gameplay screen" style="display: block; max-width: 100%; margin: 0 0 24px 0; border: 1px solid #cccccc;">
 
+**Cheat attack: Citation Storm**
+
+<img src="_static/defend-your-thesis/evidence/cheat-attack.png" alt="Defend Your Thesis Citation Storm cheat attack" style="display: block; max-width: 100%; margin: 0 0 24px 0; border: 1px solid #cccccc;">
+
 **Mobile-width layout test**
 
 <img src="_static/defend-your-thesis/evidence/mobile-home-screen.png" alt="Defend Your Thesis mobile layout screenshot" style="display: block; max-width: 100%; margin: 0 0 24px 0; border: 1px solid #cccccc;">
@@ -206,6 +212,7 @@ Evidence files:
 ```text
 source/_static/defend-your-thesis/evidence/local-home-screen.png
 source/_static/defend-your-thesis/evidence/local-gameplay.png
+source/_static/defend-your-thesis/evidence/cheat-attack.png
 source/_static/defend-your-thesis/evidence/mobile-home-screen.png
 ```
 
@@ -214,6 +221,7 @@ The game demonstrates the required features:
 - Functional software that runs in a browser.
 - Character selection.
 - Keyboard and mouse controls.
+- Cheat code: type `THESIS` during play, or press the `Cheat Attack` button.
 - Survival/defense game logic.
 - Score and game-over logic.
 - Clear documentation of AI-assisted development.
@@ -225,6 +233,6 @@ For the in-class presentation, the recommended flow is:
 1. Open the GitHub Pages URL or local server URL.
 2. Show the character selection screen.
 3. Choose one character and explain the role differences.
-4. Demonstrate movement, aiming, shooting, and enemy waves.
+4. Demonstrate movement, aiming, shooting, enemy waves, and the `THESIS` cheat code.
 5. Let the thesis take damage to show health and game-over logic.
-6. Briefly explain how LLMs helped with architecture, bug fixing, and documentation.
+6. Briefly explain how LLMs helped with architecture, bug fixing, cheat attack effects, and documentation.
