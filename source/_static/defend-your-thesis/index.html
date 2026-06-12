@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Defend Your Thesis</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20260612-cheat2" />
   </head>
   <body>
     <div class="app-shell">
@@ -14,7 +14,7 @@
           <h1>Defend Your Thesis</h1>
         </div>
         <div class="topbar-actions">
-          <button id="cheatButton" class="text-button cheat-button" type="button" title="Cheat code: THESIS">Cheat Attack</button>
+          <button id="cheatButton" class="text-button cheat-button" type="button" title="Cheat code: THESIS" disabled>Cheat Attack</button>
           <button id="pauseButton" class="icon-button" type="button" aria-label="Pause game" title="Pause">
             <span aria-hidden="true">II</span>
           </button>
@@ -108,14 +108,14 @@
             <p class="eyebrow">Cheat Code</p>
             <div class="cheat-card">
               <span>Type <strong>THESIS</strong> during play, or press the cheat button.</span>
-              <button id="sideCheatButton" class="primary-button cheat-side-button" type="button">Cheat Attack</button>
-              <p id="cheatStatus" aria-live="polite">Citation Storm ready.</p>
+              <button id="sideCheatButton" class="primary-button cheat-side-button" type="button" disabled>Cheat Attack</button>
+              <p id="cheatStatus" aria-live="polite">Start a defense, then type THESIS.</p>
             </div>
           </section>
         </aside>
       </main>
     </div>
 
-    <script src="game.js"></script>
+    <script src="game.js?v=20260612-cheat2"></script>
   </body>
 </html>
