@@ -234,6 +234,7 @@
     pauseButton.setAttribute("aria-label", "Pause game");
     pauseButton.title = "Pause";
     pauseButton.querySelector("span").textContent = "II";
+    setCheatButtonsEnabled(true);
     setCheatStatus("Citation Storm ready.");
     updateHud();
     lastTime = performance.now();
@@ -249,6 +250,7 @@
     startOverlay.classList.add("is-visible");
     gameOverOverlay.classList.remove("is-visible");
     pauseButton.disabled = true;
+    setCheatButtonsEnabled(false);
     setCheatStatus("Start a defense, then type THESIS.");
     drawTitleScene();
     updateHud();
@@ -258,6 +260,11 @@
     if (cheatStatus) {
       cheatStatus.textContent = message;
     }
+  }
+
+  function setCheatButtonsEnabled(enabled) {
+    cheatButton.disabled = !enabled;
+    sideCheatButton.disabled = !enabled;
   }
 
   function pauseGame() {
@@ -553,6 +560,7 @@
     finalWave.textContent = `Wave ${state.wave}`;
     gameOverOverlay.classList.add("is-visible");
     pauseButton.disabled = true;
+    setCheatButtonsEnabled(false);
   }
 
   function updateHud() {
@@ -866,6 +874,7 @@
 
   renderCharacterCards();
   pauseButton.disabled = true;
+  setCheatButtonsEnabled(false);
   drawTitleScene();
   applyAutostartFromUrl();
   animationFrame = requestAnimationFrame(loop);
