@@ -6,5 +6,6 @@ Suggested files:
 
 - `local-home-screen.png`
 - `local-gameplay.png`
+- `cheat-attack.png`
 - `mobile-home-screen.png`
 - `github-pages-demo.png`

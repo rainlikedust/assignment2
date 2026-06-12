@@ -95,8 +95,11 @@ h3 {
 }
 
 .topbar-actions {
+  align-items: center;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+  justify-content: flex-end;
 }
 
 .icon-button,
@@ -146,6 +149,11 @@ h3 {
   background: var(--green);
   color: #ffffff;
   min-width: 180px;
+}
+
+.cheat-button {
+  background: #111827;
+  color: #ffffff;
 }
 
 .game-layout {
@@ -413,6 +421,36 @@ h3 {
 
 .build-card strong {
   color: var(--green);
+}
+
+.cheat-card {
+  background: #fffdf8;
+  border: 3px solid var(--line);
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+}
+
+.cheat-card span {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.cheat-card span strong {
+  color: var(--red);
+}
+
+.cheat-side-button {
+  min-width: 0;
+  width: 100%;
+}
+
+.cheat-card p {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.35;
+  margin: 0;
 }
 
 .result-copy {
